@@ -67,7 +67,9 @@ class SystemStatusCard extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFCCFFCC).withOpacity(0.5), // Light Green
+                  color: const Color(
+                    0xFFCCFFCC,
+                  ).withValues(alpha: 0.5), // Light Green
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: const Icon(
@@ -92,12 +94,7 @@ class SystemStatusCard extends StatelessWidget {
               ),
               const SizedBox(width: 16),
               Expanded(
-                child: _statBox(
-                  context,
-                  'THEFT RATE',
-                  theftRate,
-                  delayMs: 300,
-                ),
+                child: _statBox(context, 'THEFT RATE', theftRate, delayMs: 300),
               ),
             ],
           ),
@@ -119,7 +116,7 @@ class SystemStatusCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),

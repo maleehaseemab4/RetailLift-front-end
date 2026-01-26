@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "575695088801",
+    "project_id": "retaillift-8ea18",
+    "storage_bucket": "retaillift-8ea18.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:575695088801:android:2cd65dfbacfca5da9854e0",
+        "android_client_info": {
+          "package_name": "com.example.shoplifting_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBu8lTc6OeyvsY_fqpqqfrtg6q_8eNlw9g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

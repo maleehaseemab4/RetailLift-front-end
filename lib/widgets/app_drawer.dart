@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:shoplifting_app/providers/app_state.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
@@ -68,8 +70,9 @@ class AppDrawer extends StatelessWidget {
             leading: const Icon(Icons.logout),
             title: const Text('Logout'),
             onTap: () {
-              // Mock logout
-              Navigator.pop(context);
+              Navigator.pop(context); // Close drawer
+              context.read<AppState>().logout();
+              Navigator.pushReplacementNamed(context, '/login');
             },
           ),
         ],

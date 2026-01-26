@@ -73,8 +73,8 @@ class _LiveMonitorScreenState extends State<LiveMonitorScreen> {
               child: Container(
                 decoration: BoxDecoration(
                   color: Colors.black,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: colorScheme.primary, width: 2),
+                  borderRadius: BorderRadius.circular(12.0),
+                  border: Border.all(color: colorScheme.primary, width: 2.0),
                 ),
                 child: Stack(
                   fit: StackFit.expand,
@@ -95,10 +95,12 @@ class _LiveMonitorScreenState extends State<LiveMonitorScreen> {
                           children: [
                             Icon(
                               Icons.videocam_rounded,
-                              size: 80,
-                              color: colorScheme.primary.withValues(alpha: 0.5),
+                              size: 80.0,
+                              color: colorScheme.primary.withAlpha(
+                                (0.5 * 255).round(),
+                              ),
                             ),
-                            const SizedBox(height: 16),
+                            const SizedBox(height: 16.0),
                             Text(
                               'Live Feed: $selectedCamera',
                               style: Theme.of(context).textTheme.titleLarge
@@ -110,28 +112,28 @@ class _LiveMonitorScreenState extends State<LiveMonitorScreen> {
                             const SizedBox(height: 8),
                             Container(
                               padding: const EdgeInsets.symmetric(
-                                horizontal: 12,
-                                vertical: 6,
+                                horizontal: 12.0,
+                                vertical: 6.0,
                               ),
                               decoration: BoxDecoration(
                                 color: Colors.green,
-                                borderRadius: BorderRadius.circular(20),
+                                borderRadius: BorderRadius.circular(20.0),
                               ),
                               child: const Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   Icon(
                                     Icons.circle,
-                                    size: 10,
+                                    size: 10.0,
                                     color: Colors.white,
                                   ),
-                                  SizedBox(width: 8),
+                                  SizedBox(width: 8.0),
                                   Text(
                                     'LIVE',
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 12,
+                                      fontSize: 12.0,
                                     ),
                                   ),
                                 ],
@@ -143,28 +145,28 @@ class _LiveMonitorScreenState extends State<LiveMonitorScreen> {
                     ),
                     // Optional: Recording indicator
                     Positioned(
-                      top: 16,
-                      right: 16,
+                      top: 16.0,
+                      right: 16.0,
                       child: Container(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 12,
-                          vertical: 8,
+                          horizontal: 12.0,
+                          vertical: 8.0,
                         ),
                         decoration: BoxDecoration(
-                          color: Colors.red.withValues(alpha: 0.8),
-                          borderRadius: BorderRadius.circular(8),
+                          color: Colors.red.withAlpha((0.8 * 255).round()),
+                          borderRadius: BorderRadius.circular(8.0),
                         ),
                         child: const Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Icon(Icons.circle, size: 8, color: Colors.white),
-                            SizedBox(width: 6),
+                            Icon(Icons.circle, size: 8.0, color: Colors.white),
+                            SizedBox(width: 6.0),
                             Text(
                               'REC',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
-                                fontSize: 10,
+                                fontSize: 10.0,
                               ),
                             ),
                           ],
@@ -175,7 +177,7 @@ class _LiveMonitorScreenState extends State<LiveMonitorScreen> {
                 ),
               ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 16.0),
             // Control Buttons
             Row(
               children: [
@@ -192,7 +194,7 @@ class _LiveMonitorScreenState extends State<LiveMonitorScreen> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: colorScheme.primary,
                       foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      padding: const EdgeInsets.symmetric(vertical: 12.0),
                     ),
                   ),
                 ),
@@ -210,7 +212,7 @@ class _LiveMonitorScreenState extends State<LiveMonitorScreen> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.red,
                       foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      padding: const EdgeInsets.symmetric(vertical: 12.0),
                     ),
                   ),
                 ),

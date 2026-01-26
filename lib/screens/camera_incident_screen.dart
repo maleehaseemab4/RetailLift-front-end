@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shoplifting_app/data/mock_repository.dart';
-import 'package:shoplifting_app/widgets/incident_card.dart';
 import 'package:shoplifting_app/widgets/app_drawer.dart';
 import 'package:shoplifting_app/widgets/notification_menu.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import '../services/api_service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class CameraIncidentScreen extends StatefulWidget {
   const CameraIncidentScreen({super.key});
@@ -56,6 +56,14 @@ class _CameraIncidentScreenState extends State<CameraIncidentScreen> {
         ),
       );
     }
+  }
+
+  Stream<QuerySnapshot> getIncidents() {
+    return FirebaseFirestore.instance
+        .collection('incidents')
+        .where('userId', isEqualTo: FirebaseAuth.instance.currentUser?.uid)
+        .orderBy('timestamp', descending: true)
+        .snapshots();
   }
 
   @override
@@ -114,37 +122,58 @@ class _CameraIncidentScreenState extends State<CameraIncidentScreen> {
 
           // List of Incidents
           Expanded(
-            child: ListView.builder(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              itemCount: MockRepository.incidents.length,
-              itemBuilder: (context, index) {
-                final incident = MockRepository.incidents[index];
-                return IncidentCard(
-                  incident: incident,
-                  onTap: () {
-                    showDialog(
-                      context: context,
-                      builder: (c) => AlertDialog(
-                        title: Text('Incident at ${incident.cameraName}'),
-                        content: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const AspectRatio(
-                              aspectRatio: 16 / 9,
-                              child: Placeholder(color: Colors.black12),
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              'Mock video playback for incident ${incident.id}.',
-                            ),
-                          ],
-                        ),
-                        actions: [
-                          TextButton(
-                            onPressed: () => Navigator.pop(c),
-                            child: const Text('Close'),
+            child: StreamBuilder<QuerySnapshot>(
+              stream: getIncidents(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+
+                final incidents = snapshot.data!.docs;
+
+                if (incidents.isEmpty) {
+                  return const Center(child: Text("No incidents found"));
+                }
+
+                return ListView.builder(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  itemCount: incidents.length,
+                  itemBuilder: (context, index) {
+                    final data =
+                        incidents[index].data() as Map<String, dynamic>;
+                    // Fallback if creating incident card is too complex with dynamic data for now
+                    // using simple list tile as per user paste
+                    return Card(
+                      margin: const EdgeInsets.only(bottom: 12),
+                      elevation: 2,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: ListTile(
+                        leading: Container(
+                          width: 50,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color: Colors.red.withValues(alpha: 0.1),
+                            borderRadius: BorderRadius.circular(8),
                           ),
-                        ],
+                          child: const Icon(Icons.videocam, color: Colors.red),
+                        ),
+                        title: Text(
+                          "Camera: ${data['cameraId'] ?? 'Unknown'}",
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        subtitle: Text(
+                          "Confidence: ${((data['confidence'] ?? 0) * 100).toStringAsFixed(1)}%",
+                        ),
+                        trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+                        onTap: () {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Video playback not implemented'),
+                            ),
+                          );
+                        },
                       ),
                     );
                   },

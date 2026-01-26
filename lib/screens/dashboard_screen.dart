@@ -7,8 +7,20 @@ import 'package:shoplifting_app/widgets/app_drawer.dart';
 import 'package:shoplifting_app/widgets/notification_menu.dart';
 import 'package:shoplifting_app/widgets/system_status_card.dart';
 
-class DashboardScreen extends StatelessWidget {
+
+class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
+
+  @override
+  State<DashboardScreen> createState() => _DashboardScreenState();
+}
+
+class _DashboardScreenState extends State<DashboardScreen> {
+  @override
+  void initState() {
+    super.initState();
+    
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -106,6 +118,5 @@ class DashboardScreen extends StatelessWidget {
     );
   }
 
-  // Helper to build a single stat tile (no icon) used inside the 2x2 square
-
+  
 }

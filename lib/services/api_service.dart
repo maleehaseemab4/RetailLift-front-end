@@ -42,7 +42,6 @@ class ApiService {
         ),
       });
 
-      // ⚠️ Change endpoint if your backend uses a separate image route
       Response response = await _dio.post("$baseUrl/detect", data: formData);
 
       return response.data;

@@ -49,6 +49,27 @@ class SettingsScreen extends StatelessWidget {
 
           const Divider(),
 
+          // Account Section
+          _buildSectionHeader(context, 'Account'),
+          ListTile(
+            title: const Text('Add Account'),
+            leading: const Icon(Icons.person_add_outlined),
+            onTap: () {
+              Navigator.pushNamed(context, '/login', arguments: {'canBack': true});
+            },
+          ),
+          ListTile(
+            title: const Text('Log Out'),
+            leading: const Icon(Icons.logout, color: Colors.red),
+            textColor: Colors.red,
+            iconColor: Colors.red,
+            onTap: () {
+              appState.logout();
+              Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
+            },
+          ),
+          const Divider(),
+
           // Notifications Section
           _buildSectionHeader(context, 'Notifications'),
           SwitchListTile(
@@ -58,6 +79,17 @@ class SettingsScreen extends StatelessWidget {
             value: appState.notificationsEnabled,
             onChanged: (value) {
               appState.toggleNotifications(value);
+            },
+          ),
+          ListTile(
+            title: const Text('Test Notification'),
+            subtitle: const Text('Triggers a test alert tone'),
+            leading: const Icon(Icons.volume_up_outlined),
+            onTap: () {
+               appState.addNotification(
+                'Test Notification ${DateTime.now().second}', 
+                'info'
+              );
             },
           ),
 
