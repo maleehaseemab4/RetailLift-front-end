@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart'; // For debugPrint
 
 class ApiService {
   // ⚠️ Ensure this IP matches your backend server
-  final String baseUrl = "http://10.115.168.193:8000";
+  final String baseUrl = "http://192.168.1.12:8000";
   final Dio _dio = Dio();
 
   /// Upload a VIDEO file to the backend

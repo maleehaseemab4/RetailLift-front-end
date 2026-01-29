@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:image_picker/image_picker.dart';
 import 'package:shoplifting_app/widgets/app_drawer.dart';
 import 'package:shoplifting_app/widgets/notification_menu.dart';
 
@@ -217,6 +221,71 @@ class _LiveMonitorScreenState extends State<LiveMonitorScreen> {
                   ),
                 ),
               ],
+            ),
+            const SizedBox(height: 12.0),
+            // -------------------------------
+            // Predict Button (inline implementation)
+            // -------------------------------
+            ElevatedButton.icon(
+              onPressed: () async {
+                final picker = ImagePicker();
+                final XFile? image = await picker.pickImage(
+                  source: ImageSource.gallery,
+                );
+                if (image == null) {
+                  if (!context.mounted) return;
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('No image selected')),
+                  );
+                  return;
+                }
+
+                const String backendUrl = 'http://10.0.2.2:8000/predict';
+
+                try {
+                  var request = http.MultipartRequest(
+                    'POST',
+                    Uri.parse(backendUrl),
+                  );
+                  request.files.add(
+                    await http.MultipartFile.fromPath('file', image.path),
+                  );
+                  var response = await request.send();
+                  var respStr = await response.stream.bytesToString();
+                  var jsonResp = jsonDecode(respStr);
+
+                  List<String> labels = ['normal', 'shoplifting'];
+                  List probs = jsonResp['prediction'][0];
+                  int maxIndex = probs.indexOf(
+                    probs.reduce((a, b) => a > b ? a : b),
+                  );
+                  String predictedClass = labels[maxIndex];
+
+                  if (!context.mounted) return;
+                  showDialog(
+                    context: context,
+                    builder: (_) => AlertDialog(
+                      title: const Text('Prediction'),
+                      content: Text(
+                        'Predicted class: $predictedClass\nProbabilities: $probs',
+                      ),
+                    ),
+                  );
+                } catch (e) {
+                  if (!context.mounted) return;
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Prediction failed')),
+                  );
+                }
+              },
+              icon: const Icon(Icons.analytics_rounded),
+              label: const Text('Predict'),
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 12.0,
+                  horizontal: 24.0,
+                ),
+              ),
             ),
           ],
         ),

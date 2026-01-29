@@ -43,3 +43,18 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Python virtual environment
+tf_env/
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Model files (optional)
+*.h5
+
+# OS files
+.DS_Store

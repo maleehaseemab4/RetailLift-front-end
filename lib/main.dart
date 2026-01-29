@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'package:shoplifting_app/providers/app_state.dart';
 import 'package:shoplifting_app/screens/dashboard_screen.dart';
@@ -11,38 +8,13 @@ import 'package:shoplifting_app/screens/settings_screen.dart';
 import 'package:shoplifting_app/screens/auth/login_screen.dart';
 import 'package:shoplifting_app/screens/auth/register_screen.dart';
 import 'package:shoplifting_app/theme.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:image_picker/image_picker.dart';
+import 'dart:developer' as developer;
 
-void main() async {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  if (kIsWeb) {
-    await Firebase.initializeApp(
-      options: FirebaseOptions(
-        apiKey: "AIzaSyBpLCZNnzLyfdw0oEl3x1Esd3HFAFgWAPw",
-        authDomain: "retaillift-8ea18.firebaseapp.com",
-        projectId: "retaillift-8ea18",
-        storageBucket: "retaillift-8ea18.firebasestorage.app",
-        messagingSenderId: "575695088801",
-        appId: "1:575695088801:web:073e88c9cf91c3bf9854e0",
-        measurementId: "G-2V2L50ZFT2",
-      ),
-    );
-  } else {
-    await Firebase.initializeApp();
-  }
-  // Register a simple foreground message handler where supported.
-  try {
-    if (!kIsWeb) {
-      FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-        if (kDebugMode) {
-          // Safe debug log for incoming foreground messages
-          // message.notification may be null depending on payload
-          print('Firebase onMessage: ${message.messageId}');
-        }
-      });
-    }
-  } catch (e) {
-    // If firebase_messaging isn't configured for a platform, ignore.
-  }
 
   runApp(
     MultiProvider(
@@ -57,9 +29,6 @@ class ShopliftingApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Watch auth state to update initial route if needed,
-    // though typically this is done via a splash screen or route guard.
-    // For simplicity, we just define the routes here.
     final appState = context.watch<AppState>();
 
     return MaterialApp(
@@ -68,7 +37,6 @@ class ShopliftingApp extends StatelessWidget {
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: appState.themeMode,
-      // Start app at login if not authenticated
       initialRoute: appState.isLoggedIn ? '/' : '/login',
       routes: {
         '/': (context) => const DashboardScreen(),
@@ -78,6 +46,77 @@ class ShopliftingApp extends StatelessWidget {
         '/login': (context) => const LoginScreen(),
         '/register': (context) => const RegisterScreen(),
       },
+    );
+  }
+}
+
+// ---------------------------
+// IMAGE PREDICTION FUNCTION
+// ---------------------------
+
+class ImagePredictor {
+  // Update the URL if using real device or emulator
+  static const String backendUrl = 'http://10.0.2.2:8000/predict';
+
+  static Future<Map<String, dynamic>?> sendImage() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+
+    if (image == null) return null;
+
+    try {
+      var request = http.MultipartRequest('POST', Uri.parse(backendUrl));
+
+      request.files.add(await http.MultipartFile.fromPath('file', image.path));
+      var response = await request.send();
+
+      var respStr = await response.stream.bytesToString();
+      var jsonResp = jsonDecode(respStr);
+
+      // Map output to labels
+      List<String> labels = ['normal', 'shoplifting'];
+      List probs = jsonResp['prediction'][0];
+      int maxIndex = probs.indexOf(probs.reduce((a, b) => a > b ? a : b));
+      String predictedClass = labels[maxIndex];
+
+      return {'class': predictedClass, 'probabilities': probs};
+    } catch (e) {
+      developer.log('Error sending image: $e', name: 'ImagePredictor');
+      return null;
+    }
+  }
+}
+
+// ---------------------------
+// USAGE EXAMPLE (Button in any screen)
+// ---------------------------
+
+class PredictButton extends StatelessWidget {
+  const PredictButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () async {
+        var result = await ImagePredictor.sendImage();
+        if (!context.mounted) return;
+        if (result != null) {
+          showDialog(
+            context: context,
+            builder: (_) => AlertDialog(
+              title: const Text("Prediction"),
+              content: Text(
+                "Predicted class: ${result['class']}\nProbabilities: ${result['probabilities']}",
+              ),
+            ),
+          );
+        } else {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(const SnackBar(content: Text("Prediction failed")));
+        }
+      },
+      child: const Text("Pick Image & Predict"),
     );
   }
 }
