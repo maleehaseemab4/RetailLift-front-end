@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
-=======
 import 'package:flutter/foundation.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
->>>>>>> 23bb695 (Add database connection)
 import 'package:provider/provider.dart';
 
 import 'package:shoplifting_app/providers/app_state.dart';
@@ -20,16 +17,14 @@ import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'dart:developer' as developer;
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-<<<<<<< HEAD
-=======
 
+  // Initialize Firebase
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   print('Firebase initialized: ${Firebase.app().name}');
->>>>>>> 23bb695 (Add database connection)
 
   runApp(
     ChangeNotifierProvider(
@@ -39,13 +34,11 @@ void main() {
   );
 }
 
-
 class ShopliftingApp extends StatelessWidget {
   const ShopliftingApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
     final appState = context.watch<AppState>();
 
     return MaterialApp(
@@ -54,36 +47,15 @@ class ShopliftingApp extends StatelessWidget {
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: appState.themeMode,
-      initialRoute: appState.isLoggedIn ? '/' : '/login',
+
+      // ✅ This controls the initial screen based on login
+      home: appState.isLoggedIn ? const DashboardScreen() : const LoginScreen(),
+
       routes: {
-        '/': (context) => const DashboardScreen(),
         '/camera': (context) => const CameraIncidentScreen(),
         '/live-monitor': (context) => const LiveMonitorScreen(),
         '/settings': (context) => const SettingsScreen(),
-        '/login': (context) => const LoginScreen(),
         '/register': (context) => const RegisterScreen(),
-=======
-    return Builder(
-      builder: (context) {
-        final appState = context.watch<AppState>();
-
-        return MaterialApp(
-          title: 'RetailLift',
-          debugShowCheckedModeBanner: false,
-          theme: AppTheme.lightTheme,
-          darkTheme: AppTheme.darkTheme,
-          themeMode: appState.themeMode,
-          initialRoute: appState.isLoggedIn ? '/' : '/login',
-          routes: {
-            '/': (context) => const DashboardScreen(),
-            '/camera': (context) => const CameraIncidentScreen(),
-            '/live-monitor': (context) => const LiveMonitorScreen(),
-            '/settings': (context) => const SettingsScreen(),
-            '/login': (context) => const LoginScreen(),
-            '/register': (context) => const RegisterScreen(),
-          },
-        );
->>>>>>> 23bb695 (Add database connection)
       },
     );
   }
@@ -94,7 +66,6 @@ class ShopliftingApp extends StatelessWidget {
 // ---------------------------
 
 class ImagePredictor {
-  // Update the URL if using real device or emulator
   static const String backendUrl = 'http://10.0.2.2:8000/predict';
 
   static Future<Map<String, dynamic>?> sendImage() async {
@@ -105,14 +76,12 @@ class ImagePredictor {
 
     try {
       var request = http.MultipartRequest('POST', Uri.parse(backendUrl));
-
       request.files.add(await http.MultipartFile.fromPath('file', image.path));
       var response = await request.send();
 
       var respStr = await response.stream.bytesToString();
       var jsonResp = jsonDecode(respStr);
 
-      // Map output to labels
       List<String> labels = ['normal', 'shoplifting'];
       List probs = jsonResp['prediction'][0];
       int maxIndex = probs.indexOf(probs.reduce((a, b) => a > b ? a : b));
@@ -150,9 +119,9 @@ class PredictButton extends StatelessWidget {
             ),
           );
         } else {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(const SnackBar(content: Text("Prediction failed")));
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text("Prediction failed")),
+          );
         }
       },
       child: const Text("Pick Image & Predict"),
