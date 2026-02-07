@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 class AppState extends ChangeNotifier {
   ThemeMode _themeMode = ThemeMode.system;
@@ -19,6 +20,49 @@ class AppState extends ChangeNotifier {
   bool get notificationsEnabled => _notificationsEnabled;
   bool get isLoggedIn => _isLoggedIn;
   List<NotificationItem> get notifications => List.unmodifiable(_notifications);
+
+  /// Initializes FCM listeners and prints the device token to the console
+  // lib/providers/app_state.dart
+
+  void initNotificationListeners() async {
+    try {
+      FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+      // 1. Explicitly request permission for Web
+      NotificationSettings settings = await messaging.requestPermission(
+        alert: true,
+        badge: true,
+        sound: true,
+      );
+
+      if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+        debugPrint('User granted permission');
+
+        String? token = await messaging.getToken(
+          vapidKey:
+              "BOhQKfhOy-8aXO1ODCEqMPN-4NA_19eeob-1oOFjaaK6SQvS_Dj6mzie0U6S0CHkcApyvyJZMPfxiCoeYrrS68U",
+        );
+
+        debugPrint("================================================");
+        debugPrint("RETAILLIFT FCM TOKEN: $token");
+        debugPrint("================================================");
+      } else {
+        debugPrint('User declined or has not accepted permission');
+      }
+
+      // 3. Foreground listener
+      FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+        if (message.notification != null) {
+          addNotification(
+            message.notification!.body ?? "Theft Alert Detected",
+            'warning',
+          );
+        }
+      });
+    } catch (e) {
+      debugPrint("Error initializing FCM: $e");
+    }
+  }
 
   void toggleTheme(bool isDark) {
     _themeMode = isDark ? ThemeMode.dark : ThemeMode.light;
@@ -40,6 +84,7 @@ class AppState extends ChangeNotifier {
   Future<void> logout() async {
     await FirebaseAuth.instance.signOut();
     _notifications.clear();
+    notifyListeners();
   }
 
   void addNotification(String message, String type) {
@@ -75,3 +120,6 @@ class NotificationItem {
     required this.timestamp,
   });
 }
+
+
+//BOhQKfhOy-8aXO1ODCEqMPN-4NA_19eeob-1oOFjaaK6SQvS_Dj6mzie0U6S0CHkcApyvyJZMPfxiCoeYrrS68U

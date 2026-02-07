@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shoplifting_app/providers/app_state.dart';
 
+//import 'package:firebase_core/firebase_core.dart';
+//import 'package:firebase_messaging/firebase_messaging.dart';
+
 class NotificationMenu extends StatelessWidget {
   const NotificationMenu({super.key});
 
@@ -25,16 +28,10 @@ class NotificationMenu extends StatelessWidget {
                   color: Colors.red,
                   shape: BoxShape.circle,
                 ),
-                constraints: const BoxConstraints(
-                  minWidth: 12,
-                  minHeight: 12,
-                ),
+                constraints: const BoxConstraints(minWidth: 12, minHeight: 12),
                 child: Text(
                   '${notifications.length}',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 8,
-                  ),
+                  style: const TextStyle(color: Colors.white, fontSize: 8),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -89,10 +86,7 @@ class NotificationMenu extends StatelessWidget {
           const PopupMenuItem<String>(
             value: 'clear',
             child: Center(
-              child: Text(
-                'Clear All',
-                style: TextStyle(color: Colors.red),
-              ),
+              child: Text('Clear All', style: TextStyle(color: Colors.red)),
             ),
           ),
         );

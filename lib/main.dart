@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-//import 'package:flutter/foundation.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'firebase_options.dart';
 import 'package:provider/provider.dart';
 
@@ -17,6 +17,13 @@ import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'dart:developer' as developer;
 
+// Top-level function for background notifications
+@pragma('vm:entry-point')
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  debugPrint("Handling background message: ${message.messageId}");
+}
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -24,9 +31,17 @@ void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   debugPrint('Firebase initialized: ${Firebase.app().name}');
 
+  // Request permissions for notifications
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
+  await messaging.requestPermission(alert: true, badge: true, sound: true);
+
+  // Set up background message handling
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
   runApp(
     ChangeNotifierProvider(
-      create: (_) => AppState(), // <-- provide your AppState
+      // Initialize notification listeners when AppState is created
+      create: (_) => AppState()..initNotificationListeners(),
       child: const ShopliftingApp(),
     ),
   );
@@ -45,10 +60,7 @@ class ShopliftingApp extends StatelessWidget {
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: appState.themeMode,
-
-      // ✅ This controls the initial screen based on login
       home: appState.isLoggedIn ? const DashboardScreen() : const LoginScreen(),
-
       routes: {
         '/camera': (context) => const CameraIncidentScreen(),
         '/live-monitor': (context) => const LiveMonitorScreen(),

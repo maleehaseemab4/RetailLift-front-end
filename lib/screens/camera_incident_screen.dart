@@ -16,7 +16,7 @@ class CameraIncidentScreen extends StatefulWidget {
 }
 
 class _CameraIncidentScreenState extends State<CameraIncidentScreen> {
-  final ApiService _apiService = ApiService();
+  final ApiService _apiService = ApiService(baseUrl: '');
   String selectedCamera = 'Entrance Cam';
   final List<String> cameras = [
     'Entrance Cam',
@@ -25,7 +25,6 @@ class _CameraIncidentScreenState extends State<CameraIncidentScreen> {
     'Storage',
   ];
 
-  // 🔹 FUNCTION TO CAPTURE IMAGE AND SEND TO BACKEND
   // 🔹 FUNCTION TO CAPTURE IMAGE AND SEND TO BACKEND
   Future<void> captureAndDetect() async {
     final picker = ImagePicker();
@@ -154,7 +153,7 @@ class _CameraIncidentScreenState extends State<CameraIncidentScreen> {
                           width: 50,
                           height: 50,
                           decoration: BoxDecoration(
-                            color: Colors.red.withValues(alpha: 0.1),
+                            color: Colors.red.withAlpha((0.5 * 255).toInt()),
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: const Icon(Icons.videocam, color: Colors.red),
