@@ -1,0 +1,2 @@
+const String kWebVapidKey =
+    'BEtgHN2OymaC6U6hJZN0oYCiWWCcUpGELR21YD5k52CVRdgSVOBCvijCZeNN0x0U4bOW5wp1DaILms1fPu5oPR8';

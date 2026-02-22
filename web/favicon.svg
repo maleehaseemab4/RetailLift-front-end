@@ -1,0 +1,31 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="512" height="512" rx="128" fill="#001F3F"/>
+  
+  <!-- Outer Shield Border -->
+  <path d="M256 80 
+           L420 140 
+           V250 
+           C420 360 350 420 256 450 
+           C162 420 92 360 92 250 
+           V140 
+           L256 80 
+           Z" 
+        fill="none" stroke="white" stroke-width="30" stroke-linejoin="round"/>
+        
+  <!-- Inner Shield Border -->
+  <path d="M256 130 
+           L360 170 
+           V250 
+           C360 320 310 360 256 380 
+           C202 360 152 320 152 250 
+           V170 
+           L256 130 
+           Z" 
+        fill="none" stroke="white" stroke-width="20" stroke-linejoin="round"/>
+        
+  <!-- Center circle (Camera Lens) -->
+  <circle cx="256" cy="250" r="40" fill="white"/>
+  
+  <!-- Reflection dot -->
+  <circle cx="265" cy="240" r="8" fill="#001F3F"/>
+</svg>

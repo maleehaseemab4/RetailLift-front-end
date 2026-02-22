@@ -1,0 +1,47 @@
+type User @table {
+  displayName: String!
+  email: String!
+  role: String!
+  photoUrl: String
+  phoneNumber: String
+}
+
+type Store @table {
+  name: String!
+  address: String!
+  contactPerson: String
+  phoneNumber: String
+}
+
+type Camera @table {
+  store: Store
+  location: String!
+  streamUrl: String!
+  description: String
+  isActive: Boolean
+}
+
+type DetectionRule @table {
+  store: Store
+  name: String!
+  description: String!
+  threshold: String!
+  isEnabled: Boolean
+}
+
+type Incident @table {
+  store: Store
+  camera: Camera
+  incidentTime: Timestamp!
+  status: String!
+  description: String
+  videoClipUrl: String
+}
+
+type Alert @table {
+  incident: Incident
+  user: User
+  alertTime: Timestamp!
+  isRead: Boolean!
+  notes: String
+}
