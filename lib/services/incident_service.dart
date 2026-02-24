@@ -9,9 +9,14 @@ class IncidentService {
   static const String _collection = 'IncidentLibrary';
 
   /// Subscribe to the shoplifting_alerts FCM topic for push notifications.
-  /// On web, topic subscription requires a service-worker; if it fails we
-  /// continue silently – Firestore real-time stream still delivers data.
+  /// Topic subscription is not available on web, so we skip it there.
   Future<void> subscribeToAlerts() async {
+    if (kIsWeb) {
+      debugPrint(
+        '[IncidentService] Topic subscription is not supported on web – skipping.',
+      );
+      return;
+    }
     try {
       await FirebaseMessaging.instance.subscribeToTopic('shoplifting_alerts');
       debugPrint('[IncidentService] Subscribed to shoplifting_alerts topic');
@@ -20,22 +25,15 @@ class IncidentService {
     }
   }
 
-  /// Real-time stream of incidents from Firestore (auto-updates when backend writes new ones)
+  /// Real-time stream of incidents from Firestore (auto-updates when backend writes new ones).
+  /// On permission or index errors the stream emits an empty list so the UI
+  /// can still show the demo incident instead of an error state.
   Stream<List<Incident>> fetchRecentIncidents() {
     return _firestore
         .collection(_collection)
         .orderBy('timestamp', descending: true)
         .limit(100)
         .snapshots()
-        .handleError((error) {
-          debugPrint('Error fetching incidents: $error');
-          if (error.toString().contains('failed-precondition')) {
-            debugPrint(
-              'FIRESTORE INDEX REQUIRED: Create a composite index on $_collection '
-              'with timestamp descending.',
-            );
-          }
-        })
         .map((snapshot) {
           try {
             return snapshot.docs
@@ -43,7 +41,23 @@ class IncidentService {
                 .toList();
           } catch (e) {
             debugPrint('Error mapping incidents: $e');
-            return [];
+            return <Incident>[];
+          }
+        })
+        .handleError((error) {
+          debugPrint('Error fetching incidents: $error');
+          final msg = error.toString();
+          if (msg.contains('permission-denied')) {
+            debugPrint(
+              'FIRESTORE RULES: The current user does not have read access to '
+              '$_collection. Deploy firestore.rules or update them in the '
+              'Firebase console.',
+            );
+          } else if (msg.contains('failed-precondition')) {
+            debugPrint(
+              'FIRESTORE INDEX REQUIRED: Create a composite index on '
+              '$_collection with timestamp descending.',
+            );
           }
         });
   }

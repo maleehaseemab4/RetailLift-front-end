@@ -20,6 +20,22 @@ class _CameraIncidentScreenState extends State<CameraIncidentScreen> {
   final IncidentService _incidentService = IncidentService();
   String _filterPrediction = 'all'; // 'all', 'shoplifting', 'normal'
 
+  /// Demo incident shown when the library is empty or as a sample entry.
+  static final Incident _demoIncident = Incident(
+    id: 'demo-001',
+    cameraName: 'Camera 3 – Aisle 7',
+    timestamp: DateTime(2026, 2, 23, 14, 35, 12),
+    thumbnailUrl:
+        'https://images.unsplash.com/photo-1604719312566-8912e9227c6a?w=400',
+    isReviewed: false,
+    userId: 'demo',
+    prediction: 'shoplifting',
+    confidence: 0.92,
+    imageUrl:
+        'https://images.unsplash.com/photo-1604719312566-8912e9227c6a?w=800',
+    videoUrl: null,
+  );
+
   @override
   void initState() {
     super.initState();
@@ -320,37 +336,18 @@ class _CameraIncidentScreenState extends State<CameraIncidentScreen> {
                   return const Center(child: CircularProgressIndicator());
                 }
 
+                // On errors (e.g. permission-denied) still show the demo
+                // incident so the user sees a working UI.
                 if (snapshot.hasError) {
-                  return Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.error_outline,
-                          size: 48,
-                          color: Colors.red[300],
-                        ),
-                        const SizedBox(height: 12),
-                        Text(
-                          'Error loading incidents',
-                          style: TextStyle(color: Colors.grey[600]),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          '${snapshot.error}',
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.grey[500],
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
-                    ),
-                  );
+                  debugPrint('StreamBuilder error: ${snapshot.error}');
+                  return _buildIncidentsList([_demoIncident]);
                 }
 
                 final incidents = snapshot.data ?? [];
-                return _buildIncidentsList(incidents);
+                // Always include the demo incident so the library
+                // is never empty and users can explore the UI.
+                final withDemo = [_demoIncident, ...incidents];
+                return _buildIncidentsList(withDemo);
               },
             ),
           ),

@@ -147,17 +147,17 @@ class AuthGate extends StatelessWidget {
         }
 
         if (snapshot.hasError) {
-          // If auth fails, go to dashboard anyway (offline mode)
-          debugPrint('Auth error: ${snapshot.error} - using offline mode');
-          return const DashboardScreen();
+          debugPrint('Auth error: ${snapshot.error} - showing login');
+          return const LoginScreen();
         }
 
         if (snapshot.hasData) {
+          // User is signed in – go to dashboard
           return const DashboardScreen();
         }
 
-        // No user data, but no error - still go to dashboard for demo
-        return const DashboardScreen();
+        // Not signed in – show login page
+        return const LoginScreen();
       },
     );
   }
