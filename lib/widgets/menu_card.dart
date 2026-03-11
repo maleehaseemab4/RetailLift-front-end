@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:shoplifting_app/widgets/animated_tap_button.dart';
 
 class MenuCard extends StatefulWidget {
@@ -64,9 +65,7 @@ class _MenuCardState extends State<MenuCard> {
                         Text(
                           widget.title,
                           style: Theme.of(context).textTheme.titleMedium
-                              ?.copyWith(
-                                fontWeight: FontWeight.bold,
-                              ),
+                              ?.copyWith(fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(height: 8),
                         Text(
@@ -80,7 +79,7 @@ class _MenuCardState extends State<MenuCard> {
                     turns: _isHovered ? 0.25 : 0.0,
                     duration: const Duration(milliseconds: 200),
                     child: Icon(
-                      Icons.arrow_forward_ios_rounded,
+                      HugeIcons.strokeRoundedArrowRight01,
                       size: 10,
                       color: Theme.of(context).colorScheme.onSurfaceVariant,
                     ),

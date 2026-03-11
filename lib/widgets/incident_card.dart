@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:intl/intl.dart';
 import 'package:shoplifting_app/models/incident.dart';
 
@@ -52,7 +53,7 @@ class _IncidentCardState extends State<IncidentCard> {
                   scale: _isHovered ? 1.2 : 1.0,
                   duration: const Duration(milliseconds: 200),
                   child: const Icon(
-                    Icons.play_circle_fill,
+                    HugeIcons.strokeRoundedPlayCircle,
                     color: Colors.white70,
                   ),
                 ),
@@ -86,7 +87,8 @@ class _IncidentCardState extends State<IncidentCard> {
                           vertical: 2,
                         ),
                         decoration: BoxDecoration(
-                          color: widget.incident.prediction?.toLowerCase() ==
+                          color:
+                              widget.incident.prediction?.toLowerCase() ==
                                   'shoplifting'
                               ? Colors.red
                               : Colors.green,
@@ -106,9 +108,7 @@ class _IncidentCardState extends State<IncidentCard> {
                         '${(widget.incident.confidence! * 100).toStringAsFixed(0)}%',
                         style: TextStyle(
                           fontSize: 10,
-                          color: Theme.of(context)
-                              .colorScheme
-                              .onSurfaceVariant,
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
                         ),
                       ),
                     if (!widget.incident.isReviewed)
@@ -126,8 +126,9 @@ class _IncidentCardState extends State<IncidentCard> {
                           'Unreviewed',
                           style: TextStyle(
                             fontSize: 10,
-                            color:
-                                Theme.of(context).colorScheme.onErrorContainer,
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.onErrorContainer,
                           ),
                         ),
                       ),
@@ -139,7 +140,7 @@ class _IncidentCardState extends State<IncidentCard> {
               turns: _isHovered ? 0.5 : 0.0,
               duration: const Duration(milliseconds: 200),
               child: Icon(
-                Icons.chevron_right_rounded,
+                HugeIcons.strokeRoundedArrowRight01,
                 color: Theme.of(context).colorScheme.onSurfaceVariant,
               ),
             ),

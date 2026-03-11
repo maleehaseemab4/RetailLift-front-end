@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:provider/provider.dart';
 import 'package:shoplifting_app/providers/dashboard_provider.dart';
 import 'package:shoplifting_app/widgets/widget_customization_dialog.dart';
@@ -14,7 +15,7 @@ class CustomizableDashboardScreen extends StatelessWidget {
         title: const Text('Customizable Dashboard'),
         actions: [
           IconButton(
-            icon: const Icon(Icons.tune),
+            icon: const Icon(HugeIcons.strokeRoundedMenuSquare),
             tooltip: 'Customize Dashboard',
             onPressed: () {
               showModalBottomSheet(
@@ -42,7 +43,11 @@ class CustomizableDashboardScreen extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.error_outline, size: 64, color: Colors.red[400]),
+                  Icon(
+                    HugeIcons.strokeRoundedAlert02,
+                    size: 64,
+                    color: Colors.red[400],
+                  ),
                   const SizedBox(height: 16),
                   const Text(
                     'Error Loading Dashboard',
@@ -79,7 +84,7 @@ class CustomizableDashboardScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(
-                    Icons.dashboard_customize,
+                    HugeIcons.strokeRoundedDashboardBrowsing,
                     size: 64,
                     color: Colors.grey[400],
                   ),
@@ -97,7 +102,7 @@ class CustomizableDashboardScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 24),
                   ElevatedButton.icon(
-                    icon: const Icon(Icons.tune),
+                    icon: const Icon(HugeIcons.strokeRoundedMenuSquare),
                     label: const Text('Customize'),
                     onPressed: () {
                       showModalBottomSheet(

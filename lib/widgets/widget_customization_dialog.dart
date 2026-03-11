@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:provider/provider.dart';
 import 'package:shoplifting_app/models/dashboard_widget_config.dart';
 import 'package:shoplifting_app/providers/dashboard_provider.dart';
@@ -67,7 +68,10 @@ class _WidgetCustomizationDialogState extends State<WidgetCustomizationDialog> {
                       ),
                     ),
                     IconButton.filledTonal(
-                      icon: const Icon(Icons.close, size: 20),
+                      icon: const Icon(
+                        HugeIcons.strokeRoundedCancel02,
+                        size: 20,
+                      ),
                       onPressed: () => Navigator.of(context).pop(),
                     ),
                   ],
@@ -251,7 +255,11 @@ class _WidgetCustomizationDialogState extends State<WidgetCustomizationDialog> {
                       : null,
                 ),
                 child: isSelected
-                    ? const Icon(Icons.check, color: Colors.white, size: 16)
+                    ? const Icon(
+                        HugeIcons.strokeRoundedSettingDone04,
+                        color: Colors.white,
+                        size: 16,
+                      )
                     : null,
               ),
             );
@@ -263,7 +271,7 @@ class _WidgetCustomizationDialogState extends State<WidgetCustomizationDialog> {
           width: double.infinity,
           child: OutlinedButton.icon(
             onPressed: _pickCustomColor,
-            icon: const Icon(Icons.color_lens),
+            icon: const Icon(HugeIcons.strokeRoundedColorPicker),
             label: const Text('Custom Color'),
             style: OutlinedButton.styleFrom(
               padding: const EdgeInsets.symmetric(vertical: 12),
@@ -430,7 +438,7 @@ class _DashboardCustomizationSheetState
                   const Spacer(),
                   IconButton(
                     onPressed: () => Navigator.of(context).pop(),
-                    icon: const Icon(Icons.close),
+                    icon: const Icon(HugeIcons.strokeRoundedCancel02),
                   ),
                 ],
               ),
@@ -469,7 +477,7 @@ class _DashboardCustomizationSheetState
                       leading: ReorderableDragStartListener(
                         index: index,
                         child: Icon(
-                          Icons.drag_handle,
+                          HugeIcons.strokeRoundedMenu03,
                           color: theme.colorScheme.onSurfaceVariant,
                         ),
                       ),
@@ -540,7 +548,7 @@ class _DashboardCustomizationSheetState
                         setState(() => selectedWidgetId = null);
                         Navigator.of(context).pop();
                       },
-                      icon: const Icon(Icons.restore),
+                      icon: const Icon(HugeIcons.strokeRoundedFilterReset),
                       label: const Text('Reset to Defaults'),
                     ),
                   ),
@@ -548,7 +556,7 @@ class _DashboardCustomizationSheetState
                   Expanded(
                     child: FilledButton.icon(
                       onPressed: () => Navigator.of(context).pop(),
-                      icon: const Icon(Icons.check),
+                      icon: const Icon(HugeIcons.strokeRoundedSettingDone04),
                       label: const Text('Done'),
                     ),
                   ),

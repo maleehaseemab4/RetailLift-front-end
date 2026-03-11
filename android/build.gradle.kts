@@ -28,6 +28,12 @@ allprojects {
 // }
 subprojects {
     project.evaluationDependsOn(":app")
+    project.plugins.withId("com.android.library") {
+        val android = project.extensions.getByType(com.android.build.gradle.LibraryExtension::class.java)
+        if (android.namespace == null || android.namespace!!.isEmpty()) {
+            android.namespace = project.group.toString().ifEmpty { "com.example.${project.name.replace("-", "_")}" }
+        }
+    }
 }
 
 tasks.register<Delete>("clean") {

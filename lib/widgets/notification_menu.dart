@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:provider/provider.dart';
 import 'package:shoplifting_app/providers/app_state.dart';
 
@@ -17,7 +18,7 @@ class NotificationMenu extends StatelessWidget {
     return PopupMenuButton<String>(
       icon: Stack(
         children: [
-          const Icon(Icons.notifications_outlined),
+          const Icon(HugeIcons.strokeRoundedNotification01),
           if (notifications.isNotEmpty)
             Positioned(
               right: 0,
@@ -60,8 +61,8 @@ class NotificationMenu extends StatelessWidget {
               children: [
                 Icon(
                   notification.type == 'warning'
-                      ? Icons.warning_amber_rounded
-                      : Icons.info_outline,
+                      ? HugeIcons.strokeRoundedAlert01
+                      : HugeIcons.strokeRoundedInformationCircle,
                   color: notification.type == 'warning'
                       ? Colors.orange
                       : const Color(0xFF001F3F),

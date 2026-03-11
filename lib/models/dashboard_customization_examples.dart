@@ -1,6 +1,7 @@
 // Example: Using Dashboard Customization Feature
 
 import 'package:flutter/material.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:provider/provider.dart';
 import 'package:shoplifting_app/providers/dashboard_provider.dart';
 import 'package:shoplifting_app/models/dashboard_widget_config.dart';
@@ -126,7 +127,7 @@ class CustomAlertWidget extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.warning_amber_rounded, color: config.color, size: 48),
+            Icon(HugeIcons.strokeRoundedAlert01, color: config.color, size: 48),
             const SizedBox(height: 12),
             Text(
               'Alerts Today',

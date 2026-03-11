@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
@@ -47,7 +48,7 @@ class DashboardCustomizationProvider with ChangeNotifier {
         id: 'monitoring',
         title: 'Monitoring',
         subtitle: 'View live feed and recorded clips',
-        icon: Icons.remove_red_eye_rounded,
+        icon: HugeIcons.strokeRoundedCameraTripod,
         route: '/live-monitor',
         order: 1,
       ),
@@ -55,7 +56,7 @@ class DashboardCustomizationProvider with ChangeNotifier {
         id: 'incident-library',
         title: 'Incident Library',
         subtitle: 'Browse archive of all detections',
-        icon: Icons.video_library_rounded,
+        icon: HugeIcons.strokeRoundedFileVideo,
         route: '/camera',
         order: 2,
       ),
@@ -63,7 +64,7 @@ class DashboardCustomizationProvider with ChangeNotifier {
         id: 'settings',
         title: 'Settings',
         subtitle: 'App preferences and alerts',
-        icon: Icons.settings_rounded,
+        icon: HugeIcons.strokeRoundedAccountSetting02,
         route: '/settings',
         order: 3,
       ),

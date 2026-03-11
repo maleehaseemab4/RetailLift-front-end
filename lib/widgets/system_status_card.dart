@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hugeicons/hugeicons.dart';
 
 class SystemStatusCard extends StatelessWidget {
   final int alertsToday;
@@ -75,8 +76,8 @@ class SystemStatusCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: const Icon(
-                  Icons.gpp_good_rounded,
-                  color: Color(0xFF00AA00), // Green Icon
+                  HugeIcons.strokeRoundedShieldEnergy,
+                  color: Color(0xFF00AA00),
                   size: 32,
                 ),
               ),

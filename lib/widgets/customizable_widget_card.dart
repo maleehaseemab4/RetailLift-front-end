@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:shoplifting_app/models/dashboard_widget_config.dart';
 
 /// Reusable widget card that respects size and color customization
@@ -56,7 +57,11 @@ class CustomizableWidgetCard extends StatelessWidget {
                         color: config.color.withOpacity(0.2),
                         shape: BoxShape.circle,
                       ),
-                      child: Icon(Icons.widgets, color: config.color, size: 32),
+                      child: Icon(
+                        HugeIcons.strokeRoundedDashboardBrowsing,
+                        color: config.color,
+                        size: 32,
+                      ),
                     ),
                     const SizedBox(height: 12),
                     Text(

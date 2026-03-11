@@ -5,7 +5,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:shoplifting_app/api/firebase_messaging_config.dart';
 
 class AppState extends ChangeNotifier {
-  ThemeMode _themeMode = ThemeMode.system;
+  ThemeMode _themeMode = ThemeMode.dark;
   bool _notificationsEnabled = true;
   bool _isLoggedIn = false;
 
@@ -117,6 +117,11 @@ class AppState extends ChangeNotifier {
 
   void clearNotifications() {
     _notifications.clear();
+    notifyListeners();
+  }
+
+  void setThemeMode(ThemeMode mode) {
+    _themeMode = mode;
     notifyListeners();
   }
 }

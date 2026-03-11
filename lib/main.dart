@@ -11,6 +11,7 @@ import 'package:shoplifting_app/providers/app_icon_provider.dart';
 
 import 'package:shoplifting_app/providers/app_state.dart';
 import 'package:shoplifting_app/theme.dart';
+import 'package:shoplifting_app/widgets/app_background.dart';
 import 'firebase_options.dart';
 
 import 'screens/customizable_dashboard_screen.dart';
@@ -18,11 +19,11 @@ import 'screens/alert_settings_screen.dart';
 import 'screens/app_icon_settings_screen.dart';
 import 'screens/auth/login_screen.dart';
 import 'screens/auth/register_screen.dart';
-import 'screens/dashboard_screen.dart';
 import 'screens/live_monitor_screen.dart';
 import 'screens/camera_incident_screen.dart';
 import 'screens/settings_screen.dart';
 import 'screens/splash_screen.dart';
+import 'screens/main_shell.dart';
 
 String? globalError;
 
@@ -115,8 +116,9 @@ class MyApp extends StatelessWidget {
               '/app-icon-settings': (context) => const AppIconSettingsScreen(),
             },
             builder: (context, home) {
-              // Wrap in error handler
-              return ErrorHandler(child: home ?? const SizedBox());
+              return AppBackground(
+                child: ErrorHandler(child: home ?? const SizedBox()),
+              );
             },
           );
         },
@@ -134,7 +136,7 @@ class AuthGate extends StatelessWidget {
   Widget build(BuildContext context) {
     // If Firebase failed to initialize, skip auth and go straight to dashboard
     if (firebaseInitError != null) {
-      return const DashboardScreen();
+      return const MainShell();
     }
 
     return StreamBuilder<User?>(
@@ -152,11 +154,9 @@ class AuthGate extends StatelessWidget {
         }
 
         if (snapshot.hasData) {
-          // User is signed in – go to dashboard
-          return const DashboardScreen();
+          return const MainShell();
         }
 
-        // Not signed in – show login page
         return const LoginScreen();
       },
     );

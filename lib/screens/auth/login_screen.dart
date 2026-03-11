@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:provider/provider.dart';
 import 'package:shoplifting_app/providers/app_state.dart';
 
@@ -123,7 +124,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     decoration: _buildInputDecoration(
                       theme,
                       'Email',
-                      Icons.email_outlined,
+                      HugeIcons.strokeRoundedMail01,
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -143,7 +144,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     decoration: _buildInputDecoration(
                       theme,
                       'Password',
-                      Icons.lock_outline,
+                      HugeIcons.strokeRoundedLocked,
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {

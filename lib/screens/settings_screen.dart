@@ -3,8 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:shoplifting_app/providers/app_state.dart';
-import 'package:shoplifting_app/widgets/app_drawer.dart';
 import 'package:shoplifting_app/widgets/notification_menu.dart';
+import 'package:hugeicons/hugeicons.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -19,7 +19,6 @@ class SettingsScreen extends StatelessWidget {
             MediaQuery.platformBrightnessOf(context) == Brightness.dark);
 
     return Scaffold(
-      drawer: const AppDrawer(),
       appBar: AppBar(
         title: InkWell(
           onTap: () => Navigator.pushReplacementNamed(context, '/'),
@@ -48,7 +47,11 @@ class SettingsScreen extends StatelessWidget {
           SwitchListTile(
             title: const Text('Dark Mode'),
             subtitle: const Text('Use a darker color palette'),
-            secondary: Icon(isDarkMode ? Icons.dark_mode : Icons.light_mode),
+            secondary: Icon(
+              isDarkMode
+                  ? HugeIcons.strokeRoundedMoon02
+                  : HugeIcons.strokeRoundedSun03,
+            ),
             value: isDarkMode,
             onChanged: (value) {
               appState.toggleTheme(value);
@@ -61,7 +64,7 @@ class SettingsScreen extends StatelessWidget {
           _buildSectionHeader(context, 'Account'),
           ListTile(
             title: const Text('Add Account'),
-            leading: const Icon(Icons.person_add_outlined),
+            leading: const Icon(HugeIcons.strokeRoundedUserAdd01),
             onTap: () {
               Navigator.pushNamed(
                 context,
@@ -72,7 +75,10 @@ class SettingsScreen extends StatelessWidget {
           ),
           ListTile(
             title: const Text('Log Out'),
-            leading: const Icon(Icons.logout, color: Colors.red),
+            leading: const Icon(
+              HugeIcons.strokeRoundedLogoutCircle01,
+              color: Colors.red,
+            ),
             textColor: Colors.red,
             iconColor: Colors.red,
             onTap: () {
@@ -91,7 +97,7 @@ class SettingsScreen extends StatelessWidget {
           SwitchListTile(
             title: const Text('Enable Alerts'),
             subtitle: const Text('Receive notifications for new incidents'),
-            secondary: const Icon(Icons.notifications_active),
+            secondary: const Icon(HugeIcons.strokeRoundedNotification01),
             value: appState.notificationsEnabled,
             onChanged: (value) {
               appState.toggleNotifications(value);
@@ -100,7 +106,7 @@ class SettingsScreen extends StatelessWidget {
           ListTile(
             title: const Text('Test Notification'),
             subtitle: const Text('Triggers a test alert tone'),
-            leading: const Icon(Icons.volume_up_outlined),
+            leading: const Icon(HugeIcons.strokeRoundedVolumeHigh),
             onTap: () {
               appState.addNotification(
                 'Test Notification ${DateTime.now().second}',
@@ -116,11 +122,11 @@ class SettingsScreen extends StatelessWidget {
           ListTile(
             title: const Text('Version'),
             trailing: const Text('1.0.0'),
-            leading: const Icon(Icons.info_outline),
+            leading: const Icon(HugeIcons.strokeRoundedInformationCircle),
           ),
           ListTile(
             title: const Text('Terms of Service'),
-            leading: const Icon(Icons.description_outlined),
+            leading: const Icon(HugeIcons.strokeRoundedFile01),
             onTap: () {
               // Mock navigation
             },

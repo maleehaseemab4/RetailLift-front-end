@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:provider/provider.dart';
 import 'package:shoplifting_app/providers/app_icon_provider.dart';
 
@@ -16,10 +17,10 @@ class AppIconSettingsScreen extends StatelessWidget {
         children: iconProvider.icons
             .map(
               (icon) => ListTile(
-                leading: Icon(Icons.apps),
+                leading: const Icon(HugeIcons.strokeRoundedLayoutGrid),
                 title: Text(icon),
                 trailing: iconProvider.selectedIcon == icon
-                    ? const Icon(Icons.check)
+                    ? const Icon(HugeIcons.strokeRoundedSettingDone04)
                     : null,
                 onTap: () => iconProvider.setSelectedIcon(icon),
               ),

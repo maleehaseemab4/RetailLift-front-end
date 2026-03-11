@@ -7,6 +7,7 @@ import 'dart:ui' as ui;
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:http/http.dart' as http;
 import 'package:image/image.dart' as img;
 
@@ -277,7 +278,9 @@ class _LiveMonitorScreenState extends State<LiveMonitorScreen>
       debugPrint('[LiveMonitor] Web capture error: $e');
       _errorCount++;
       if (_errorCount > 30) {
-        debugPrint('[LiveMonitor] Many errors, pausing briefly before retrying...');
+        debugPrint(
+          '[LiveMonitor] Many errors, pausing briefly before retrying...',
+        );
         _errorCount = 0;
         await Future.delayed(const Duration(seconds: 2));
       }
@@ -300,7 +303,9 @@ class _LiveMonitorScreenState extends State<LiveMonitorScreen>
       debugPrint('[LiveMonitor] Stream frame error: $e');
       _errorCount++;
       if (_errorCount > 30) {
-        debugPrint('[LiveMonitor] Many errors, pausing briefly before retrying...');
+        debugPrint(
+          '[LiveMonitor] Many errors, pausing briefly before retrying...',
+        );
         _errorCount = 0;
         await Future.delayed(const Duration(seconds: 2));
       }
@@ -401,7 +406,7 @@ class _LiveMonitorScreenState extends State<LiveMonitorScreen>
               padding: const EdgeInsets.only(right: 8),
               child: Chip(
                 avatar: Icon(
-                  Icons.person_search,
+                  HugeIcons.strokeRoundedUserSearch01,
                   size: 16,
                   color: colorScheme.onPrimary,
                 ),
@@ -422,7 +427,11 @@ class _LiveMonitorScreenState extends State<LiveMonitorScreen>
       floatingActionButton: _cameraInitialized
           ? FloatingActionButton.extended(
               onPressed: _isStreaming ? _stopStreaming : _startStreaming,
-              icon: Icon(_isStreaming ? Icons.stop : Icons.play_arrow),
+              icon: Icon(
+                _isStreaming
+                    ? HugeIcons.strokeRoundedStopCircle
+                    : HugeIcons.strokeRoundedPlay,
+              ),
               label: Text(_isStreaming ? 'Stop' : 'Start Analysis'),
               backgroundColor: _isStreaming ? Colors.red : colorScheme.primary,
               foregroundColor: Colors.white,
@@ -440,7 +449,11 @@ class _LiveMonitorScreenState extends State<LiveMonitorScreen>
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(Icons.videocam_off, size: 64, color: Colors.white54),
+            const Icon(
+              HugeIcons.strokeRoundedVideoOff,
+              size: 64,
+              color: Colors.white54,
+            ),
             const SizedBox(height: 16),
             Text(
               _cameraError!,
@@ -453,7 +466,7 @@ class _LiveMonitorScreenState extends State<LiveMonitorScreen>
                 setState(() => _cameraError = null);
                 _initCamera();
               },
-              icon: const Icon(Icons.refresh),
+              icon: const Icon(HugeIcons.strokeRoundedRefresh),
               label: const Text('Retry'),
             ),
           ],
@@ -654,7 +667,9 @@ class _LiveMonitorScreenState extends State<LiveMonitorScreen>
           Row(
             children: [
               Icon(
-                isShoplifting ? Icons.warning_rounded : Icons.check_circle,
+                isShoplifting
+                    ? HugeIcons.strokeRoundedAlert01
+                    : HugeIcons.strokeRoundedCheckmarkCircle01,
                 color: isShoplifting ? Colors.white : Colors.greenAccent,
                 size: 22,
               ),
@@ -728,7 +743,11 @@ class _LiveMonitorScreenState extends State<LiveMonitorScreen>
       ),
       child: const Row(
         children: [
-          Icon(Icons.notification_important, color: Colors.white, size: 28),
+          Icon(
+            HugeIcons.strokeRoundedNotification01,
+            color: Colors.white,
+            size: 28,
+          ),
           SizedBox(width: 12),
           Expanded(
             child: Column(

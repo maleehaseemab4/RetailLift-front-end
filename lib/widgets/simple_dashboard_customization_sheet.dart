@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:provider/provider.dart';
 import 'package:shoplifting_app/providers/dashboard_customization_provider.dart';
 
@@ -45,7 +46,7 @@ class _SimpleDashboardCustomizationSheetState
                   const Spacer(),
                   IconButton(
                     onPressed: () => Navigator.of(context).pop(),
-                    icon: const Icon(Icons.close),
+                    icon: const Icon(HugeIcons.strokeRoundedCancel02),
                   ),
                 ],
               ),
@@ -98,7 +99,7 @@ class _SimpleDashboardCustomizationSheetState
                       onPressed: () {
                         provider.resetToDefaults();
                       },
-                      icon: const Icon(Icons.restore),
+                      icon: const Icon(HugeIcons.strokeRoundedFilterReset),
                       label: const Text('Reset'),
                     ),
                   ),
@@ -106,7 +107,7 @@ class _SimpleDashboardCustomizationSheetState
                   Expanded(
                     child: FilledButton.icon(
                       onPressed: () => Navigator.of(context).pop(),
-                      icon: const Icon(Icons.check),
+                      icon: const Icon(HugeIcons.strokeRoundedSettingDone04),
                       label: const Text('Done'),
                     ),
                   ),
@@ -170,7 +171,11 @@ class _SimpleDashboardCustomizationSheetState
                   : null,
             ),
             child: isSelected
-                ? const Icon(Icons.check, color: Colors.black54, size: 20)
+                ? const Icon(
+                    HugeIcons.strokeRoundedSettingDone04,
+                    color: Colors.black54,
+                    size: 20,
+                  )
                 : null,
           ),
         );
@@ -202,7 +207,7 @@ class _SimpleDashboardCustomizationSheetState
             leading: ReorderableDragStartListener(
               index: index,
               child: Icon(
-                Icons.drag_handle,
+                HugeIcons.strokeRoundedMenu03,
                 color: theme.colorScheme.onSurfaceVariant,
               ),
             ),

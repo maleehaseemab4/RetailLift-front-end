@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:hugeicons/hugeicons.dart';
 
 class CameraPreview extends StatelessWidget {
   final String cameraName;
@@ -29,7 +30,7 @@ class CameraPreview extends StatelessWidget {
               ),
             ),
             child: Icon(
-              Icons.videocam_off_outlined,
+              HugeIcons.strokeRoundedVideoOff,
               size: 64,
               color: Colors.white.withValues(alpha: 0.2),
             ),
@@ -46,7 +47,11 @@ class CameraPreview extends StatelessWidget {
               ),
               child: Row(
                 children: [
-                  const Icon(Icons.fiber_manual_record, color: Colors.white, size: 12)
+                  const Icon(
+                        HugeIcons.strokeRoundedCircle,
+                        color: Colors.white,
+                        size: 12,
+                      )
                       .animate(onPlay: (c) => c.repeat())
                       .fadeIn(duration: 500.ms)
                       .fadeOut(delay: 500.ms, duration: 500.ms),
@@ -74,7 +79,11 @@ class CameraPreview extends StatelessWidget {
                 fontWeight: FontWeight.bold,
                 fontSize: 16,
                 shadows: [
-                  Shadow(blurRadius: 4, color: Colors.black, offset: Offset(0, 2)),
+                  Shadow(
+                    blurRadius: 4,
+                    color: Colors.black,
+                    offset: Offset(0, 2),
+                  ),
                 ],
               ),
             ),
@@ -84,7 +93,7 @@ class CameraPreview extends StatelessWidget {
             top: 16,
             right: 16,
             child: const Icon(
-              Icons.radio_button_checked,
+              HugeIcons.strokeRoundedRadio01,
               color: Colors.red,
               size: 20,
             ),

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:provider/provider.dart';
 import 'package:shoplifting_app/providers/app_state.dart';
 
@@ -82,7 +83,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(HugeIcons.strokeRoundedArrowLeft01),
           onPressed: () {
             if (Navigator.canPop(context)) {
               Navigator.pop(context);
@@ -127,7 +128,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     decoration: _buildInputDecoration(
                       theme,
                       'Full Name',
-                      Icons.person_outline,
+                      HugeIcons.strokeRoundedUser,
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -144,7 +145,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     decoration: _buildInputDecoration(
                       theme,
                       'Email',
-                      Icons.email_outlined,
+                      HugeIcons.strokeRoundedMail01,
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -164,7 +165,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     decoration: _buildInputDecoration(
                       theme,
                       'Password',
-                      Icons.lock_outline,
+                      HugeIcons.strokeRoundedLocked,
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -184,7 +185,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     decoration: _buildInputDecoration(
                       theme,
                       'Confirm Password',
-                      Icons.lock_outline,
+                      HugeIcons.strokeRoundedLocked,
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
