@@ -36,7 +36,10 @@ class _MainShellState extends State<MainShell> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
-      body: IndexedStack(index: _currentIndex, children: _screens),
+      body: IndexedStack(
+        index: _currentIndex,
+        children: _screens,
+      ),
       bottomNavigationBar: _FloatingNavBar(
         currentIndex: _currentIndex,
         onTap: (index) => setState(() => _currentIndex = index),
@@ -46,17 +49,20 @@ class _MainShellState extends State<MainShell> {
 }
 
 class _FloatingNavBar extends StatelessWidget {
-  const _FloatingNavBar({required this.currentIndex, required this.onTap});
+  const _FloatingNavBar({
+    required this.currentIndex,
+    required this.onTap,
+  });
 
   final int currentIndex;
   final void Function(int) onTap;
 
   static const _items = [
-    (icon: HugeIcons.strokeRoundedDashboardBrowsing, label: 'Dashboard'),
+    (icon: HugeIcons.strokeRoundedDashboardBrowsing, label: 'Home'),
     (icon: HugeIcons.strokeRoundedCameraTripod, label: 'Monitor'),
-    (icon: HugeIcons.strokeRoundedFileVideo, label: 'Incidents'),
+    (icon: HugeIcons.strokeRoundedFileVideo, label: 'History'),
     (icon: HugeIcons.strokeRoundedAccountSetting02, label: 'Settings'),
-    (icon: HugeIcons.strokeRoundedUser, label: 'Profile'),
+    (icon: HugeIcons.strokeRoundedUser, label: 'User'),
   ];
 
   @override
@@ -67,7 +73,7 @@ class _FloatingNavBar extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.fromLTRB(40, 0, 40, 16 + bottomPadding),
       child: Container(
-        height: 64,
+        height: 70,
         decoration: BoxDecoration(
           color: const Color(0xFF0C0E22),
           borderRadius: BorderRadius.circular(40),
@@ -89,29 +95,45 @@ class _FloatingNavBar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: List.generate(_items.length, (i) {
             final active = i == currentIndex;
+
             return GestureDetector(
               behavior: HitTestBehavior.opaque,
               onTap: () => onTap(i),
               child: SizedBox(
-                width: 52,
+                width: 60,
                 height: 64,
-                child: Center(
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 220),
-                    curve: Curves.easeInOut,
-                    padding: const EdgeInsets.all(9),
-                    decoration: BoxDecoration(
-                      color: active
-                          ? primary.withOpacity(0.18)
-                          : Colors.transparent,
-                      borderRadius: BorderRadius.circular(14),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    AnimatedContainer(
+                      duration: const Duration(milliseconds: 220),
+                      curve: Curves.easeInOut,
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: active
+                            ? primary.withOpacity(0.18)
+                            : Colors.transparent,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Icon(
+                        _items[i].icon,
+                        size: 22,
+                        color: active
+                            ? primary
+                            : Colors.white.withOpacity(0.40),
+                      ),
                     ),
-                    child: Icon(
-                      _items[i].icon,
-                      size: 22,
-                      color: active ? primary : Colors.white.withOpacity(0.40),
+                    const SizedBox(height: 3),
+                    Text(
+                      _items[i].label,
+                      style: TextStyle(
+                        fontSize: 10,
+                        color: active
+                            ? primary
+                            : Colors.white.withOpacity(0.5),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
               ),
             );

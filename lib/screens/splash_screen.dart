@@ -90,8 +90,8 @@ class _SplashScreenState extends State<SplashScreen>
                       ),
                       // Original logo — rounded square, unchanged
                       Container(
-                        width: 150,
-                        height: 150,
+                        width: 200,
+                        height: 200,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
                           boxShadow: [
@@ -104,8 +104,8 @@ class _SplashScreenState extends State<SplashScreen>
                         ),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(30),
-                          child: SvgPicture.asset(
-                            'assets/icons/logo.svg',
+                          child: Image.asset(
+                            'assets/images/image.png',
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -154,7 +154,7 @@ class _RadarPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final center = Offset(size.width / 2, size.height / 2);
-    final logoRadius = 75.0; // half of 150px logo
+    final logoRadius = 100.0; // half of 200px logo
     final maxRadius = size.width / 2;
 
     // 1. Static depth rings — faint, always visible

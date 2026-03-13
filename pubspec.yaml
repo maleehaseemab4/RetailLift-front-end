@@ -71,6 +71,7 @@ flutter:
   assets:
     - assets/sounds/
     - assets/icons/
+    - assets/images/image.png
 
   fonts:
     - family: HgiStrokeRounded
