@@ -60,20 +60,21 @@ class _FloatingNavBar extends StatelessWidget {
   static const _items = [
     (icon: HugeIcons.strokeRoundedDashboardBrowsing, label: 'Home'),
     (icon: HugeIcons.strokeRoundedCameraTripod, label: 'Monitor'),
-    (icon: HugeIcons.strokeRoundedFileVideo, label: 'History'),
+    (icon: HugeIcons.strokeRoundedFileVideo, label: 'Library'),
     (icon: HugeIcons.strokeRoundedAccountSetting02, label: 'Settings'),
     (icon: HugeIcons.strokeRoundedUser, label: 'User'),
   ];
 
   @override
   Widget build(BuildContext context) {
-    final primary = Theme.of(context).colorScheme.primary;
     final bottomPadding = MediaQuery.of(context).padding.bottom;
+
+    const barHeight = 74.0;
 
     return Padding(
       padding: EdgeInsets.fromLTRB(40, 0, 40, 16 + bottomPadding),
       child: Container(
-        height: 70,
+        height: barHeight,
         decoration: BoxDecoration(
           color: const Color(0xFF0C0E22),
           borderRadius: BorderRadius.circular(40),
@@ -84,53 +85,53 @@ class _FloatingNavBar extends StatelessWidget {
               blurRadius: 28,
               offset: const Offset(0, 10),
             ),
-            BoxShadow(
-              color: primary.withOpacity(0.08),
-              blurRadius: 20,
-              offset: const Offset(0, 4),
-            ),
           ],
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: List.generate(_items.length, (i) {
             final active = i == currentIndex;
 
-            return GestureDetector(
-              behavior: HitTestBehavior.opaque,
-              onTap: () => onTap(i),
-              child: SizedBox(
-                width: 60,
-                height: 64,
+            return Expanded(
+              child: GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: () => onTap(i),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    
+                    // 🔥 ICON FLOAT EFFECT
                     AnimatedContainer(
-                      duration: const Duration(milliseconds: 220),
-                      curve: Curves.easeInOut,
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: active
-                            ? primary.withOpacity(0.18)
-                            : Colors.transparent,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeOut,
+                      transform: Matrix4.identity()
+                        ..translate(0.0, active ? -10.0 : 0.0)
+                        ..scale(active ? 1.1 : 1.0),
                       child: Icon(
                         _items[i].icon,
-                        size: 22,
+                        size: 24,
                         color: active
-                            ? primary
-                            : Colors.white.withOpacity(0.40),
+                            ? Colors.white
+                            : Colors.white.withOpacity(0.45),
                       ),
                     ),
-                    const SizedBox(height: 3),
-                    Text(
-                      _items[i].label,
-                      style: TextStyle(
-                        fontSize: 10,
-                        color: active
-                            ? primary
-                            : Colors.white.withOpacity(0.5),
+
+                    const SizedBox(height: 4),
+
+                    // 🔥 LABEL
+                    AnimatedOpacity(
+                      duration: const Duration(milliseconds: 200),
+                      opacity: active ? 1 : 0.5,
+                      child: Text(
+                        _items[i].label,
+                        style: TextStyle(
+                          fontSize: 11,
+                          fontWeight: active
+                              ? FontWeight.w600
+                              : FontWeight.w400,
+                          color: active
+                              ? Colors.white
+                              : Colors.white.withOpacity(0.5),
+                        ),
                       ),
                     ),
                   ],
