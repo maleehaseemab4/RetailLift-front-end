@@ -44,12 +44,21 @@ class AppTheme {
     textTheme: GoogleFonts.poppinsTextTheme(ThemeData.light().textTheme),
 
     listTileTheme: const ListTileThemeData(minVerticalPadding: 14, dense: true),
-    appBarTheme: const AppBarTheme(
+    appBarTheme: AppBarTheme(
       centerTitle: true,
       elevation: 0,
-      backgroundColor: Color.fromARGB(255, 0, 0, 0),
-      foregroundColor: Color(0xFFFFFFFF),
-      iconTheme: IconThemeData(color: Colors.white),
+      backgroundColor: _surfaceLight,
+      foregroundColor: _primaryBlue,
+      iconTheme: const IconThemeData(color: _primaryBlue),
+      titleTextStyle: GoogleFonts.poppins(
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+        color: _primaryBlue,
+      ),
+    ),
+    iconTheme: const IconThemeData(color: _primaryBlue),
+    iconButtonTheme: IconButtonThemeData(
+      style: IconButton.styleFrom(foregroundColor: _primaryBlue),
     ),
   );
 

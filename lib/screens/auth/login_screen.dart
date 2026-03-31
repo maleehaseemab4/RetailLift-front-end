@@ -16,6 +16,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  String? _passwordError;
   bool _isLoading = false;
 
   @override
@@ -30,6 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
     if (_formKey.currentState!.validate()) {
       setState(() {
         _isLoading = true;
+        _passwordError = null;
       });
 
       try {
@@ -47,6 +49,20 @@ class _LoginScreenState extends State<LoginScreen> {
 
         // Navigate to dashboard
         Navigator.of(context).pushReplacementNamed('/');
+      } on FirebaseAuthException catch (e) {
+        if (!mounted) {
+          return;
+        }
+        setState(() {
+          if (e.code == 'wrong-password') {
+            _passwordError = 'Incorrect password. Please try again.';
+          } else {
+            _passwordError = e.message ?? 'Authentication failed.';
+          }
+        });
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Login Failed: ${e.message ?? e.code}")),
+        );
       } catch (e) {
         if (!mounted) {
           return;
@@ -145,7 +161,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       theme,
                       'Password',
                       HugeIcons.strokeRoundedLocked,
-                    ),
+                    ).copyWith(errorText: _passwordError),
+                    onChanged: (_) {
+                      if (_passwordError != null) {
+                        setState(() {
+                          _passwordError = null;
+                        });
+                      }
+                    },
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter your password';

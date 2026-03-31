@@ -2,11 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:provider/provider.dart';
 import 'package:shoplifting_app/providers/dashboard_provider.dart';
-import 'package:shoplifting_app/widgets/widget_customization_dialog.dart';
+import 'package:shoplifting_app/widgets/simple_dashboard_customization_sheet.dart';
 import 'package:shoplifting_app/widgets/customizable_widget_card.dart';
+import 'package:shoplifting_app/widgets/trend_card.dart';
+import 'package:shoplifting_app/widgets/peak_hours_card.dart';
+import 'package:shoplifting_app/widgets/weekly_rate_card.dart';
+import 'package:shoplifting_app/widgets/alert_counts_card.dart';
 
 class CustomizableDashboardScreen extends StatelessWidget {
   const CustomizableDashboardScreen({super.key});
+
+  Widget? _buildWidgetContent(String id) {
+    switch (id) {
+      case 'trend':
+        return const TrendCard();
+      case 'peak-hours':
+        return const PeakHoursCard();
+      case 'weekly-rate':
+        return const WeeklyRateCard();
+      case 'alert-counts':
+        return const AlertCountsCard();
+      default:
+        return null;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,13 +37,9 @@ class CustomizableDashboardScreen extends StatelessWidget {
             icon: const Icon(HugeIcons.strokeRoundedMenuSquare),
             tooltip: 'Customize Dashboard',
             onPressed: () {
-              showModalBottomSheet(
+              showDialog(
                 context: context,
-                isScrollControlled: true,
-                builder: (_) => Consumer<DashboardProvider>(
-                  builder: (context, _, _) =>
-                      const DashboardCustomizationSheet(),
-                ),
+                builder: (_) => const SimpleDashboardCustomizationSheet(),
               );
             },
           ),
@@ -110,7 +125,7 @@ class CustomizableDashboardScreen extends StatelessWidget {
                         isScrollControlled: true,
                         builder: (_) => Consumer<DashboardProvider>(
                           builder: (context, _, _) =>
-                              const DashboardCustomizationSheet(),
+                              const SimpleDashboardCustomizationSheet(),
                         ),
                       );
                     },
@@ -129,12 +144,12 @@ class CustomizableDashboardScreen extends StatelessWidget {
                   (widget) => CustomizableWidgetCard(
                     key: ValueKey(widget.id),
                     config: widget,
-                    content: widget.description,
+                    child: _buildWidgetContent(widget.id),
                     onTap: () {
                       showDialog(
                         context: context,
-                        builder: (context) =>
-                            WidgetCustomizationDialog(widget: widget),
+                        builder: (_) =>
+                            const SimpleDashboardCustomizationSheet(),
                       );
                     },
                   ),

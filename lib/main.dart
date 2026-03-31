@@ -10,6 +10,7 @@ import 'package:shoplifting_app/providers/alert_provider.dart';
 import 'package:shoplifting_app/providers/app_icon_provider.dart';
 
 import 'package:shoplifting_app/providers/app_state.dart';
+import 'package:shoplifting_app/providers/analytics_provider.dart';
 import 'package:shoplifting_app/theme.dart';
 import 'package:shoplifting_app/widgets/app_background.dart';
 import 'firebase_options.dart';
@@ -92,6 +93,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => DashboardCustomizationProvider()),
         ChangeNotifierProvider(create: (_) => AlertProvider()),
         ChangeNotifierProvider(create: (_) => AppIconProvider()),
+        ChangeNotifierProvider(create: (_) => AnalyticsProvider()),
       ],
       child: Consumer<AppState>(
         builder: (context, appState, _) {

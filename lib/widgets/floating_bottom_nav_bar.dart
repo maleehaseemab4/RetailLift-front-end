@@ -29,6 +29,21 @@ class FloatingBottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+    final navBackgroundGradient = isDark
+        ? const LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [Color(0xFF07091D), Color(0xFF160838)],
+          )
+        : LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              theme.colorScheme.primary.withOpacity(0.15),
+              theme.colorScheme.surface.withOpacity(0.75),
+            ],
+          );
 
     return SafeArea(
       child: Padding(
@@ -37,16 +52,16 @@ class FloatingBottomNavBar extends StatelessWidget {
           height: _barHeight,
           child: Container(
             decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [Color(0xFF07091D), Color(0xFF160838)],
-              ),
+              gradient: navBackgroundGradient,
               borderRadius: BorderRadius.circular(40),
-              border: Border.all(color: Colors.white.withOpacity(0.10)),
+              border: Border.all(
+                color: theme.colorScheme.outline.withOpacity(0.20),
+              ),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.55),
+                  color: isDark
+                      ? Colors.black.withOpacity(0.55)
+                      : Colors.black.withOpacity(0.20),
                   blurRadius: 26,
                   offset: const Offset(0, 10),
                 ),
@@ -66,10 +81,12 @@ class FloatingBottomNavBar extends StatelessWidget {
                     animationDuration: _animationDuration,
                     curve: _animationCurve,
                     bubbleRise: _bubbleRise,
-                    selectedColor: theme.colorScheme.primary,
-                    unselectedColor: theme.colorScheme.onSurface.withOpacity(
-                      0.55,
-                    ),
+                    selectedColor: isDark
+                        ? Colors.white
+                        : const Color(0xFF001F3F),
+                    unselectedColor: isDark
+                        ? Colors.white70
+                        : const Color(0xFF4D6A84),
                   ),
                 );
               }),
@@ -165,7 +182,7 @@ class _AnimatedNavItemState extends State<AnimatedNavItem> {
             curve: widget.curve,
             builder: (context, translateY, child) {
               return Transform.translate(
-                offset: Offset(0, translateY), // ✅ REAL FIX HERE
+                offset: Offset(0, translateY),
                 child: child,
               );
             },

@@ -58,6 +58,7 @@ dependencies:
   flutter_svg: ^2.0.10+1
   video_player: ^2.8.6
   tflite: ^1.1.2
+  fl_chart: ^0.66.2
 
 
 dev_dependencies:

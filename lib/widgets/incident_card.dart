@@ -43,19 +43,52 @@ class _IncidentCardState extends State<IncidentCard> {
                         width: 2,
                       )
                     : null,
-                image: DecorationImage(
-                  image: NetworkImage(widget.incident.thumbnailUrl),
-                  fit: BoxFit.cover,
-                ),
               ),
-              child: Center(
-                child: AnimatedScale(
-                  scale: _isHovered ? 1.2 : 1.0,
-                  duration: const Duration(milliseconds: 200),
-                  child: const Icon(
-                    HugeIcons.strokeRoundedPlayCircle,
-                    color: Colors.white70,
-                  ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    if (widget.incident.thumbnailUrl.isNotEmpty)
+                      Image.network(
+                        widget.incident.thumbnailUrl,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) => Container(
+                          color: const Color(0xFFCFD8DC),
+                          child: const Icon(
+                            HugeIcons.strokeRoundedImageNotFound02,
+                            color: Colors.white70,
+                            size: 30,
+                          ),
+                        ),
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) return child;
+                          return const Center(
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          );
+                        },
+                      )
+                    else
+                      Container(
+                        color: const Color(0xFFCFD8DC),
+                        child: const Icon(
+                          HugeIcons.strokeRoundedImageNotFound02,
+                          color: Colors.white70,
+                          size: 30,
+                        ),
+                      ),
+                    Align(
+                      alignment: Alignment.center,
+                      child: AnimatedScale(
+                        scale: _isHovered ? 1.2 : 1.0,
+                        duration: const Duration(milliseconds: 200),
+                        child: const Icon(
+                          HugeIcons.strokeRoundedPlayCircle,
+                          color: Colors.white70,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),

@@ -54,6 +54,42 @@ class DashboardProvider with ChangeNotifier {
         color: const Color(0xFF4CAF50),
         order: 4,
       ),
+      DashboardWidgetConfig(
+        id: 'trend',
+        title: 'Shoplifting Trend',
+        description: 'Weekly trend of shoplifting incidents',
+        isVisible: true,
+        size: WidgetSize.large,
+        color: const Color(0xFF4DA8DA),
+        order: 5,
+      ),
+      DashboardWidgetConfig(
+        id: 'peak-hours',
+        title: 'Peak Hours',
+        description: 'Peak hours of shoplifting based on time',
+        isVisible: true,
+        size: WidgetSize.medium,
+        color: const Color(0xFF001F3F),
+        order: 6,
+      ),
+      DashboardWidgetConfig(
+        id: 'weekly-rate',
+        title: 'Weekly Rate',
+        description: 'Rate of shoplifting this week',
+        isVisible: true,
+        size: WidgetSize.small,
+        color: const Color(0xFF4DA8DA),
+        order: 7,
+      ),
+      DashboardWidgetConfig(
+        id: 'alert-counts',
+        title: 'Alert Counts',
+        description: 'Numbers of alerts in this week and day',
+        isVisible: true,
+        size: WidgetSize.medium,
+        color: const Color(0xFF001F3F),
+        order: 8,
+      ),
     ];
   }
 
