@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
-  static const Color _primaryBlue = Color(0xFF001F3F);
-  static const Color _secondaryTeal = Color(0xFF003366);
-  static const Color _backgroundLight = Color(0xFFF5F7FA);
+  static const Color _primaryBlue = Color(0xFF87CEEB); // Sky blue
+  static const Color _secondaryTeal = Color(0xFF00BFFF); // Deep sky blue
+  static const Color _backgroundLight = Color(
+    0xFFE3F2FD,
+  ); // Light sky background
 
   static const Color _backgroundCold = Color(0xFF07091D);
   static const Color _surfaceCold = Color(0xFF111435);

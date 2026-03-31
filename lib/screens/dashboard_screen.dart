@@ -58,8 +58,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ),
         body: Consumer<DashboardCustomizationProvider>(
           builder: (context, customizationProvider, _) {
+            final bottomNavPadding =
+                MediaQuery.of(context).padding.bottom + 100;
             return SingleChildScrollView(
-              padding: const EdgeInsets.all(16),
+              padding: EdgeInsets.fromLTRB(16, 16, 16, bottomNavPadding),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
