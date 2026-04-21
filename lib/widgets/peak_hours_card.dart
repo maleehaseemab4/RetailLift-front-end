@@ -20,7 +20,7 @@ class PeakHoursCard extends StatelessWidget {
                 BarChartRodData(
                   toY: count.toDouble(),
                   color: const Color(0xFF001F3F),
-                  width: 8,
+                  width: 16,
                 ),
               ],
             ),

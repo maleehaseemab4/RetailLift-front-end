@@ -46,14 +46,18 @@ class FloatingBottomNavBar extends StatelessWidget {
           );
 
     return SafeArea(
+      top: false,
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(18, 0, 18, 12),
+        padding: const EdgeInsets.symmetric(horizontal: 0),
         child: SizedBox(
           height: _barHeight,
           child: Container(
             decoration: BoxDecoration(
               gradient: navBackgroundGradient,
-              borderRadius: BorderRadius.circular(40),
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(24),
+                topRight: Radius.circular(24),
+              ),
               border: Border.all(
                 color: theme.colorScheme.outline.withOpacity(0.20),
               ),
@@ -62,8 +66,8 @@ class FloatingBottomNavBar extends StatelessWidget {
                   color: isDark
                       ? Colors.black.withOpacity(0.55)
                       : Colors.black.withOpacity(0.20),
-                  blurRadius: 26,
-                  offset: const Offset(0, 10),
+                  blurRadius: 10,
+                  offset: const Offset(0, -2),
                 ),
               ],
             ),

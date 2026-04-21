@@ -135,7 +135,13 @@ class CustomizableDashboardScreen extends StatelessWidget {
             );
           }
 
+          final bottomInset =
+              MediaQuery.of(context).padding.bottom +
+              kBottomNavigationBarHeight +
+              24;
+
           return ReorderableListView(
+            padding: EdgeInsets.fromLTRB(0, 0, 0, bottomInset),
             onReorder: (oldIndex, newIndex) {
               dashboardProvider.reorderWidgets(oldIndex, newIndex);
             },

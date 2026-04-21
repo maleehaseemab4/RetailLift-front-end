@@ -92,14 +92,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   SizedBox(height: 250, child: PeakHoursCard()),
                   const SizedBox(height: 16),
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(
-                        child: SizedBox(height: 120, child: WeeklyRateCard()),
-                      ),
+                      const Expanded(child: WeeklyRateCard()),
                       const SizedBox(width: 16),
-                      Expanded(
-                        child: SizedBox(height: 120, child: AlertCountsCard()),
-                      ),
+                      const Expanded(child: AlertCountsCard()),
                     ],
                   ),
                 ],

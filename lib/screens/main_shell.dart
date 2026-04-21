@@ -36,45 +36,30 @@ class _MainShellState extends State<MainShell> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // extendBody must be true so the body goes behind the nav bar
-      extendBody: true,
-      body: Stack(
-        children: [
-          // Page content — fills the entire screen including behind the nav bar
-          IndexedStack(index: _currentIndex, children: _screens),
-
-          // Nav bar overlaid at the bottom — no tight height constraints here,
-          // so the bubble can freely pop upward without overflow errors
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: FloatingBottomNavBar(
-              currentIndex: _currentIndex,
-              onTap: (index) => setState(() => _currentIndex = index),
-              items: const [
-                NavBarItemData(
-                  icon: HugeIcons.strokeRoundedDashboardBrowsing,
-                  label: 'Home',
-                ),
-                NavBarItemData(
-                  icon: HugeIcons.strokeRoundedCameraTripod,
-                  label: 'Monitor',
-                ),
-                NavBarItemData(
-                  icon: HugeIcons.strokeRoundedFileVideo,
-                  label: 'Library',
-                ),
-                NavBarItemData(
-                  icon: HugeIcons.strokeRoundedAccountSetting02,
-                  label: 'Settings',
-                ),
-                NavBarItemData(
-                  icon: HugeIcons.strokeRoundedUser,
-                  label: 'User',
-                ),
-              ],
-            ),
+      body: IndexedStack(index: _currentIndex, children: _screens),
+      bottomNavigationBar: FloatingBottomNavBar(
+        currentIndex: _currentIndex,
+        onTap: (index) => setState(() => _currentIndex = index),
+        items: const [
+          NavBarItemData(
+            icon: HugeIcons.strokeRoundedDashboardBrowsing,
+            label: 'Home',
+          ),
+          NavBarItemData(
+            icon: HugeIcons.strokeRoundedCameraTripod,
+            label: 'Monitor',
+          ),
+          NavBarItemData(
+            icon: HugeIcons.strokeRoundedFileVideo,
+            label: 'Library',
+          ),
+          NavBarItemData(
+            icon: HugeIcons.strokeRoundedAccountSetting02,
+            label: 'Settings',
+          ),
+          NavBarItemData(
+            icon: HugeIcons.strokeRoundedUser,
+            label: 'User',
           ),
         ],
       ),
