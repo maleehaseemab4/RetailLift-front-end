@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="gcm_defaultSenderId" translatable="false">334937589408</string>
+    <string name="google_api_key" translatable="false">AIzaSyBL6hzDs8CvUYg5chHOj3n3pjNqtgR0vuM</string>
+    <string name="google_app_id" translatable="false">1:334937589408:android:e34826db18516e5c886bc5</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyBL6hzDs8CvUYg5chHOj3n3pjNqtgR0vuM</string>
+    <string name="google_storage_bucket" translatable="false">retaillift-ed290.firebasestorage.app</string>
+    <string name="project_id" translatable="false">retaillift-ed290</string>
+</resources>

@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:hugeicons/hugeicons.dart';
+
 import 'package:provider/provider.dart';
 import 'package:shoplifting_app/providers/app_state.dart';
 

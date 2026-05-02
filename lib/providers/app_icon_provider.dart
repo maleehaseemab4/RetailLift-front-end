@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dynamic_icon/flutter_dynamic_icon.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppIconProvider with ChangeNotifier {
@@ -21,15 +20,7 @@ class AppIconProvider with ChangeNotifier {
 
   void setSelectedIcon(String icon) async {
     _selectedIcon = icon;
-    try {
-      await FlutterDynamicIcon.setApplicationIconBadgeNumber(0); // Reset badge
-      await FlutterDynamicIcon.setAlternateIconName(
-        icon == 'default' ? null : icon,
-      );
-    } catch (e) {
-      // Fallback for unsupported platforms
-      debugPrint('Dynamic icon not supported: $e');
-    }
+    // Dynamic icon switching not available in current version
     _savePreferences();
     notifyListeners();
   }

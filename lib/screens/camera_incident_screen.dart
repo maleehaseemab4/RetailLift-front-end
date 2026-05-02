@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:hugeicons/styles/stroke_rounded.dart';
+
 import 'package:video_player/video_player.dart';
 import 'package:shoplifting_app/widgets/notification_menu.dart';
 import 'package:shoplifting_app/widgets/incident_card.dart';
@@ -72,7 +74,7 @@ class _CameraIncidentScreenState extends State<CameraIncidentScreen> {
                       ),
                     ),
                     IconButton(
-                      icon: const Icon(HugeIcons.strokeRoundedCancel02),
+                      icon: HugeIcon(icon: HugeIconsStrokeRounded.cancel02),
                       onPressed: () => Navigator.pop(context),
                     ),
                   ],
@@ -98,9 +100,9 @@ class _CameraIncidentScreenState extends State<CameraIncidentScreen> {
                               return Container(
                                 height: 250,
                                 color: Colors.grey[200],
-                                child: const Center(
-                                  child: Icon(
-                                    HugeIcons.strokeRoundedImageNotFound02,
+                                child: Center(
+                                  child: HugeIcon(
+                                    icon: HugeIconsStrokeRounded.imageNotFound02,
                                     size: 64,
                                   ),
                                 ),
@@ -117,15 +119,15 @@ class _CameraIncidentScreenState extends State<CameraIncidentScreen> {
                             color: Colors.black54,
                             borderRadius: BorderRadius.circular(20),
                           ),
-                          child: const Row(
+                          child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Icon(
-                                HugeIcons.strokeRoundedFullScreen,
+                              HugeIcon(
+                                icon: HugeIconsStrokeRounded.fullScreen,
                                 color: Colors.white,
                                 size: 20,
                               ),
-                              SizedBox(width: 4),
+                              const SizedBox(width: 4),
                               Text(
                                 'Tap to view full screen',
                                 style: TextStyle(
@@ -169,7 +171,7 @@ class _CameraIncidentScreenState extends State<CameraIncidentScreen> {
                           Navigator.pop(context);
                           _openFullScreenImage(context, incident);
                         },
-                        icon: const Icon(HugeIcons.strokeRoundedFullScreen),
+                        icon: HugeIcon(icon: HugeIconsStrokeRounded.fullScreen),
                         label: const Text('View Full Screen'),
                       ),
                     ),
@@ -186,9 +188,7 @@ class _CameraIncidentScreenState extends State<CameraIncidentScreen> {
                               ),
                             );
                           },
-                          icon: const Icon(
-                            HugeIcons.strokeRoundedCheckmarkCircle01,
-                          ),
+                          icon: HugeIcon(icon: HugeIconsStrokeRounded.checkmarkCircle01),
                           label: const Text('Mark Reviewed'),
                         ),
                       ),
@@ -234,8 +234,8 @@ class _CameraIncidentScreenState extends State<CameraIncidentScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              HugeIcons.strokeRoundedFolderOpen,
+            HugeIcon(
+              icon: HugeIconsStrokeRounded.folderOpen,
               size: 64,
               color: Colors.grey[400],
             ),
@@ -311,7 +311,7 @@ class _CameraIncidentScreenState extends State<CameraIncidentScreen> {
                   ),
                 ),
                 PopupMenuButton<String>(
-                  icon: const Icon(HugeIcons.strokeRoundedFilterHorizontal),
+                  icon: HugeIcon(icon: HugeIconsStrokeRounded.filterHorizontal),
                   onSelected: (value) {
                     setState(() => _filterPrediction = value);
                   },
@@ -447,17 +447,17 @@ class _FullScreenIncidentViewerState extends State<_FullScreenIncidentViewer> {
         actions: [
           if (_hasVideo)
             IconButton(
-              icon: Icon(
-                _showVideo
-                    ? HugeIcons.strokeRoundedImage01
-                    : HugeIcons.strokeRoundedPlayCircle,
+              icon: HugeIcon(
+                icon: _showVideo
+                    ? HugeIconsStrokeRounded.image01
+                    : HugeIconsStrokeRounded.playCircle,
               ),
               tooltip: _showVideo ? 'View Screenshot' : 'Play Video Clip',
               onPressed: _videoInitializing ? null : _toggleVideo,
             ),
           if (!widget.incident.isReviewed)
             IconButton(
-              icon: const Icon(HugeIcons.strokeRoundedCheckmarkCircle01),
+              icon: HugeIcon(icon: HugeIconsStrokeRounded.checkmarkCircle01),
               tooltip: 'Mark as Reviewed',
               onPressed: () {
                 IncidentService().markAsReviewed(widget.incident.id);
@@ -510,18 +510,17 @@ class _FullScreenIncidentViewerState extends State<_FullScreenIncidentViewer> {
                 );
               },
               errorBuilder: (context, error, stackTrace) {
-                return const Center(
+                return Center(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      // ignore: unnecessary_const
-                      const Icon(
-                        HugeIcons.strokeRoundedImageNotFound02,
+                      HugeIcon(
+                        icon: HugeIconsStrokeRounded.imageNotFound02,
                         size: 64,
                         color: Colors.white54,
                       ),
-                      SizedBox(height: 8),
-                      Text(
+                      const SizedBox(height: 8),
+                      const Text(
                         'Failed to load image',
                         style: TextStyle(color: Colors.white54),
                       ),
@@ -538,7 +537,7 @@ class _FullScreenIncidentViewerState extends State<_FullScreenIncidentViewer> {
             bottom: 24,
             child: ElevatedButton.icon(
               onPressed: _toggleVideo,
-              icon: const Icon(HugeIcons.strokeRoundedPlayCircle),
+              icon: HugeIcon(icon: HugeIconsStrokeRounded.playCircle),
               label: const Text('Play 5s Video Clip'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.white.withAlpha(200),
@@ -617,8 +616,8 @@ class _FullScreenIncidentViewerState extends State<_FullScreenIncidentViewer> {
                 color: Colors.black54,
                 shape: BoxShape.circle,
               ),
-              child: const Icon(
-                HugeIcons.strokeRoundedPlay,
+              child: HugeIcon(
+                icon: HugeIconsStrokeRounded.play,
                 color: Colors.white,
                 size: 48,
               ),
@@ -693,8 +692,8 @@ class _FullScreenIncidentViewerState extends State<_FullScreenIncidentViewer> {
           const SizedBox(height: 8),
           Row(
             children: [
-              const Icon(
-                HugeIcons.strokeRoundedCamera01,
+              HugeIcon(
+                icon: HugeIconsStrokeRounded.camera01,
                 color: Colors.white54,
                 size: 16,
               ),
@@ -703,15 +702,7 @@ class _FullScreenIncidentViewerState extends State<_FullScreenIncidentViewer> {
                 widget.incident.cameraName,
                 style: const TextStyle(color: Colors.white70, fontSize: 13),
               ),
-              if (_hasVideo) ...[
-                const Spacer(),
-                Icon(
-                  _showVideo
-                      ? HugeIcons.strokeRoundedPauseCircle
-                      : HugeIcons.strokeRoundedPlayCircle,
-                  color: Colors.white54,
-                  size: 16,
-                ),
+              if (_hasVideo) ...[\n                const Spacer(),\n                HugeIcon(\n                  icon: _showVideo\n                      ? HugeIconsStrokeRounded.pauseCircle\n                      : HugeIconsStrokeRounded.playCircle,\n                  color: Colors.white54,\n                  size: 16,\n                ),
                 const SizedBox(width: 4),
                 Text(
                   _showVideo ? 'Video playing' : 'Video clip available',

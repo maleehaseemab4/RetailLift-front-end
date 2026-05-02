@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.example.shoplifting_1.app-mergeDebugResources-77:/values-port/values-port.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\server\\.gradle\\caches\\8.14\\transforms\\afc3214917b6acf2687e85b399c49c3a\\transformed\\appcompat-1.1.0\\res\\values-port\\values-port.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "55",
+                        "endOffsets": "106"
+                    }
+                }
+            ]
+        }
+    ]
+}

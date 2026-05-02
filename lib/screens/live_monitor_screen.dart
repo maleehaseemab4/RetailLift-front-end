@@ -7,7 +7,7 @@ import 'dart:ui' as ui;
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
-import 'package:hugeicons/hugeicons.dart';
+
 import 'package:http/http.dart' as http;
 import 'package:image/image.dart' as img;
 
